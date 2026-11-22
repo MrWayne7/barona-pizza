@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /propuesta
+
+Sitemap: https://barona-pizza.pages.dev/sitemap.xml

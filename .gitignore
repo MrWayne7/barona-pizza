@@ -1,0 +1,6 @@
+__pycache__/
+.DS_Store
+.wrangler/
+barona-sitio.zip
+deploy.log
+publicar.command

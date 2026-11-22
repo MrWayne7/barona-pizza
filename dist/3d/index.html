@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El viaje de una Barona: del horno a tu puerta en 3D | Barona Pizza</title>
+<meta name="description" content="Recorre en 3D el viaje de una pizza de Barona: la masa en el aire, la lluvia de extras, el horno por dentro y la carta flotando. Toca una pizza y pídela a domicilio en Bogotá.">
+<link rel="canonical" href="https://barona-pizza.pages.dev/3d/">
+<meta name="theme-color" content="#ad291d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Barona Pizza">
+<meta property="og:locale" content="es_CO">
+<meta property="og:title" content="El viaje de una Barona — del horno a tu puerta">
+<meta property="og:description" content="Recorre en 3D el viaje de una pizza de Barona: la masa en el aire, la lluvia de extras, el horno por dentro y la carta flotando. Toca una pizza y pídela a domicilio en Bogotá.">
+<meta property="og:url" content="https://barona-pizza.pages.dev/3d/">
+<meta property="og:image" content="https://barona-pizza.pages.dev/img/og-3d.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/icono-180.png">
+<link rel="preload" href="../fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/viaje.css">
+<link rel="preload" as="script" href="../js/three.min.js">
+<script>document.documentElement.className+=" js";window.BARONA={"wa":"573142953367","base":"../","horario":{"0":["15:00","23:00"],"1":["15:00","23:00"],"2":["15:00","23:00"],"3":["15:00","23:00"],"4":["15:00","23:00"],"5":["15:00","23:00"],"6":["15:00","23:00"]},"lenis":"../js/lenis.min.js"};</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://barona-pizza.pages.dev/"},{"@type":"ListItem","position":2,"name":"Viaje 3D","item":"https://barona-pizza.pages.dev/3d/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"El viaje de una Barona","url":"https://barona-pizza.pages.dev/3d/","inLanguage":"es-CO","about":{"@id":"https://barona-pizza.pages.dev/#restaurante"},"description":"Recorre en 3D el viaje de una pizza de Barona: la masa en el aire, la lluvia de extras, el horno por dentro y la carta flotando. Toca una pizza y pídela a domicilio en Bogotá.","hasPart":[{"@type":"WebPageElement","name":"La masa","description":"Todo empieza en el aire. Una bola de masa se abre girando entre harina, hasta volverse el disco donde va a pasar todo lo demás."},{"@type":"WebPageElement","name":"Los extras","description":"Extra jamón, extra queso, extra amor. Una lluvia de pepperoni, mozzarella y albahaca cruza la cocina; si la tocas, se espanta."},{"@type":"WebPageElement","name":"El horno","description":"Cruzas la boca de ladrillo y entras al fuego. Aquí adentro pasa lo importante, y pasa rápido: la pizza sale al momento."},{"@type":"WebPageElement","name":"La carta","description":"Seis pizzas de la casa flotan en la sala. Tocas una, la cámara se acerca, ves qué lleva y cuánto cuesta, y la agregas a tu pedido."},{"@type":"WebPageElement","name":"Llegó","description":"Los ingredientes arman la B de Barona frente al letrero encendido. Más pizza, menos drama: lo único que falta es que pidas la tuya."}]}</script>
+</head>
+<body class="p3d">
+<div id="mundo-bg" aria-hidden="true"></div>
+<canvas id="mundo" aria-hidden="true"></canvas>
+<div id="loader" role="status" aria-live="polite"><div class="loader-in"><img src="../img/mascota-blanca.webp" alt="" width="520" height="511" fetchpriority="high" decoding="async"><div class="loader-wm">Barona<br>Pizza</div><div class="loader-row"><span>Precalentando el horno</span><span id="load-n">0°</span></div></div></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="nav nav-viaje" id="nav">
+  <div class="wrap nav-in">
+    <a class="marca" href="../" aria-label="Barona Pizza, inicio"><img src="../img/logo-horizontal.webp" alt="Barona Pizza" width="900" height="261" fetchpriority="high" decoding="async"></a>
+    <nav class="nav-enl" aria-label="Principal"><a href="../menu/">Menú</a><a href="../domicilios/">Domicilios</a><a href="../historia/">Historia</a><a href="../ubicacion/">Ubicación</a><a href="../preguntas/">Preguntas</a><a class="n3d" href="../3d/" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg>Viaje 3D</a></nav>
+    <div class="nav-der">
+      <button class="carro" type="button" data-abrir-pedido aria-label="Ver tu pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20.5" r="1.2"/><circle cx="18.5" cy="20.5" r="1.2"/><path d="M2 2.5h3.2l2.6 12.2a1.8 1.8 0 0 0 1.8 1.4h8.3a1.8 1.8 0 0 0 1.8-1.4L21.5 7H6.2"/></svg><span>Pedido</span><b data-cuenta>0</b></button>
+      <button class="burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="movil"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="movil" id="movil" aria-hidden="true" inert>
+  <nav aria-label="Menú del celular"><a href="../">Inicio</a><a href="../menu/">Menú</a><a href="../domicilios/">Domicilios</a><a href="../historia/">Historia</a><a href="../ubicacion/">Ubicación</a><a href="../preguntas/">Preguntas</a><a href="../3d/">Viaje 3D</a></nav>
+  <div class="movil-pie"><a class="btn btn-lino" data-wa="¡Hola Barona! Quiero hacer un pedido." data-desde="menu-celular" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20hacer%20un%20pedido."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>Pedir por WhatsApp</a><span>Bogotá · desde 2006 · @baronapizza</span></div>
+</div>
+
+<header class="viaje3d" id="top" aria-label="El viaje de una Barona, recorrido en 3D">
+  <div class="hero-ui" id="hero-ui">
+    <div class="gyro-row"><button id="gyro" class="gyro" type="button" hidden>Mover con el teléfono</button></div>
+    <div class="hero-core"><div class="hero-title" id="hero-title">
+      <p class="pre">Barona Pizza · Bogotá · desde 2006</p>
+      <h1><span style="--i:0"><i>El viaje</i></span><span style="--i:1"><i>de una</i></span><span style="--i:2"><i>Barona</i></span></h1>
+      <p class="sub">Del horno a tu puerta, en un minuto.</p>
+    </div></div>
+    <div class="hero-foot">
+      <div class="cap" id="cap" aria-live="polite"><div class="cap-n" id="cap-n">01</div><div><div class="cap-t" id="cap-t">La masa</div><div class="cap-s" id="cap-s">Todo empieza en el aire.</div></div></div>
+      <div class="piece" id="piece" aria-live="polite">
+        <div class="piece-n" id="piece-n">01</div>
+        <div><div class="piece-t" id="piece-t"></div><p id="piece-d"></p><b class="piece-p" id="piece-p"></b>
+          <div class="piece-act"><button class="btn btn-rojo btn-s" id="piece-go" type="button">Agregar al pedido</button><button class="btn btn-linea btn-s" id="piece-close" type="button">Seguir el viaje</button></div></div>
+      </div>
+      <div class="hero-bar"><span id="bar-idx">01 / 05</span><div class="bar-line"><i id="bar-fill"></i></div><a href="#llegada" class="skip" id="saltar">Saltar el viaje</a></div>
+      <div class="hint" id="hint" aria-hidden="true"><span></span>Desliza para empezar</div>
+    </div>
+  </div>
+</header>
+<main id="contenido">
+<section class="sec cierre" id="llegada">
+  <div class="wrap">
+    <img src="../img/ilus-cajas-sticker.webp" alt="El pizzero de Barona cargando una torre de cajas de pizza" width="520" height="640" class="pegatina" loading="lazy" decoding="async" data-m="zoom">
+    <span class="ante">Llegó</span><h2 data-m>Ahora pide la tuya</h2>
+    <p class="bajada" data-m>Ese fue el viaje. El de verdad empieza cuando mandas el pedido: sale del horno a tu caja y de ahí a tu puerta, en Bogotá.</p>
+    <div class="acciones" data-m><a class="btn btn-rojo" href="../menu/" data-ev="clic_pedir" data-desde="viaje-llegada">Ver el menú completo</a><a class="btn btn-wa" data-wa="¡Hola Barona! Vengo del viaje 3D y quiero pedir." data-desde="viaje-llegada" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Vengo%20del%20viaje%203D%20y%20quiero%20pedir."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>Pedir por WhatsApp</a></div>
+  </div>
+</section>
+<div class="cuadros" aria-hidden="true"></div>
+<section class="sec crema" id="carta">
+  <div class="wrap">
+    <div class="cab"><div><span class="ante">Las del viaje</span><h2 data-m>La carta que viste flotando</h2></div><a class="btn btn-linea" href="../menu/" data-m>Menú completo</a></div>
+    <div class="rej"><article class="item" id="la-de-siempre" data-n="La de Siempre" data-m style="--d:0.00s">
+  <div class="etqs"><span class="etq v">Vegetariana</span></div><h3>La de Siempre</h3><p>Mozzarella, salsa de tomate de la casa y albahaca fresca. La clásica.</p><fieldset class="tams"><legend>Tamaño de La de Siempre</legend><label class="tam"><input type="radio" name="t-la-de-siempre" value="18900" data-t="Personal" checked><span><b>Personal</b>$18.900</span></label><label class="tam"><input type="radio" name="t-la-de-siempre" value="32900" data-t="Mediana"><span><b>Mediana</b>$32.900</span></label><label class="tam"><input type="radio" name="t-la-de-siempre" value="45900" data-t="Grande"><span><b>Grande</b>$45.900</span></label></fieldset>
+  <div class="item-pie"><span class="precio">$18.900</span><button class="mas" type="button" hidden>Agregar</button><a class="mas pedir-directo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20pedir%3A%20La%20de%20Siempre%20%28Personal%29." data-desde="tarjeta" rel="noopener">Pedir</a></div>
+</article><article class="item" id="pepperoni-party" data-n="Pepperoni Party" data-m style="--d:0.07s">
+  <div class="etqs"></div><h3>Pepperoni Party</h3><p>Doble pepperoni y mozzarella derretida. Para los de siempre.</p><fieldset class="tams"><legend>Tamaño de Pepperoni Party</legend><label class="tam"><input type="radio" name="t-pepperoni-party" value="21900" data-t="Personal" checked><span><b>Personal</b>$21.900</span></label><label class="tam"><input type="radio" name="t-pepperoni-party" value="36900" data-t="Mediana"><span><b>Mediana</b>$36.900</span></label><label class="tam"><input type="radio" name="t-pepperoni-party" value="49900" data-t="Grande"><span><b>Grande</b>$49.900</span></label></fieldset>
+  <div class="item-pie"><span class="precio">$21.900</span><button class="mas" type="button" hidden>Agregar</button><a class="mas pedir-directo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20pedir%3A%20Pepperoni%20Party%20%28Personal%29." data-desde="tarjeta" rel="noopener">Pedir</a></div>
+</article><article class="item" id="la-chimba" data-n="La Chimba" data-m style="--d:0.14s">
+  <div class="etqs"><span class="etq">La favorita</span></div><h3>La Chimba</h3><p>La especial de la casa: chorizo, maíz tierno y cebolla caramelizada.</p><fieldset class="tams"><legend>Tamaño de La Chimba</legend><label class="tam"><input type="radio" name="t-la-chimba" value="25900" data-t="Personal" checked><span><b>Personal</b>$25.900</span></label><label class="tam"><input type="radio" name="t-la-chimba" value="43900" data-t="Mediana"><span><b>Mediana</b>$43.900</span></label><label class="tam"><input type="radio" name="t-la-chimba" value="57900" data-t="Grande"><span><b>Grande</b>$57.900</span></label></fieldset>
+  <div class="item-pie"><span class="precio">$25.900</span><button class="mas" type="button" hidden>Agregar</button><a class="mas pedir-directo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20pedir%3A%20La%20Chimba%20%28Personal%29." data-desde="tarjeta" rel="noopener">Pedir</a></div>
+</article><article class="item" id="barona-suprema" data-n="Barona Suprema" data-m style="--d:0.00s">
+  <div class="etqs"></div><h3>Barona Suprema</h3><p>Pepperoni, jamón, champiñón, pimentón y cebolla. La más completa.</p><fieldset class="tams"><legend>Tamaño de Barona Suprema</legend><label class="tam"><input type="radio" name="t-barona-suprema" value="24900" data-t="Personal" checked><span><b>Personal</b>$24.900</span></label><label class="tam"><input type="radio" name="t-barona-suprema" value="41900" data-t="Mediana"><span><b>Mediana</b>$41.900</span></label><label class="tam"><input type="radio" name="t-barona-suprema" value="55900" data-t="Grande"><span><b>Grande</b>$55.900</span></label></fieldset>
+  <div class="item-pie"><span class="precio">$24.900</span><button class="mas" type="button" hidden>Agregar</button><a class="mas pedir-directo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20pedir%3A%20Barona%20Suprema%20%28Personal%29." data-desde="tarjeta" rel="noopener">Pedir</a></div>
+</article><article class="item" id="hawaiana-sin-drama" data-n="Hawaiana sin Drama" data-m style="--d:0.07s">
+  <div class="etqs"></div><h3>Hawaiana sin Drama</h3><p>Jamón y piña. Sí, piña. Y no pasa nada.</p><fieldset class="tams"><legend>Tamaño de Hawaiana sin Drama</legend><label class="tam"><input type="radio" name="t-hawaiana-sin-drama" value="21900" data-t="Personal" checked><span><b>Personal</b>$21.900</span></label><label class="tam"><input type="radio" name="t-hawaiana-sin-drama" value="36900" data-t="Mediana"><span><b>Mediana</b>$36.900</span></label><label class="tam"><input type="radio" name="t-hawaiana-sin-drama" value="49900" data-t="Grande"><span><b>Grande</b>$49.900</span></label></fieldset>
+  <div class="item-pie"><span class="precio">$21.900</span><button class="mas" type="button" hidden>Agregar</button><a class="mas pedir-directo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20pedir%3A%20Hawaiana%20sin%20Drama%20%28Personal%29." data-desde="tarjeta" rel="noopener">Pedir</a></div>
+</article><article class="item" id="cuatro-quesos" data-n="Cuatro Quesos" data-m style="--d:0.14s">
+  <div class="etqs"><span class="etq v">Vegetariana</span></div><h3>Cuatro Quesos</h3><p>Mozzarella, parmesano, queso crema y un toque de queso azul.</p><fieldset class="tams"><legend>Tamaño de Cuatro Quesos</legend><label class="tam"><input type="radio" name="t-cuatro-quesos" value="23900" data-t="Personal" checked><span><b>Personal</b>$23.900</span></label><label class="tam"><input type="radio" name="t-cuatro-quesos" value="39900" data-t="Mediana"><span><b>Mediana</b>$39.900</span></label><label class="tam"><input type="radio" name="t-cuatro-quesos" value="53900" data-t="Grande"><span><b>Grande</b>$53.900</span></label></fieldset>
+  <div class="item-pie"><span class="precio">$23.900</span><button class="mas" type="button" hidden>Agregar</button><a class="mas pedir-directo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20pedir%3A%20Cuatro%20Quesos%20%28Personal%29." data-desde="tarjeta" rel="noopener">Pedir</a></div>
+</article></div>
+  </div>
+</section>
+<section class="sec" id="actos">
+  <div class="wrap">
+    <span class="ante">El mismo viaje, contado</span><h2 data-m>Cinco actos, de la masa a tu puerta</h2>
+    <p class="bajada" data-m>¿Saltaste el recorrido o prefieres leerlo? Esto es lo que pasa en él. Y si quieres saber de dónde viene todo, está <a class="enl" href="../historia/">la historia de Barona desde 2006</a>.</p>
+    <ol class="actos"><li data-m><h3>La masa</h3><p>Todo empieza en el aire. Una bola de masa se abre girando entre harina, hasta volverse el disco donde va a pasar todo lo demás.</p></li><li data-m><h3>Los extras</h3><p>Extra jamón, extra queso, extra amor. Una lluvia de pepperoni, mozzarella y albahaca cruza la cocina; si la tocas, se espanta.</p></li><li data-m><h3>El horno</h3><p>Cruzas la boca de ladrillo y entras al fuego. Aquí adentro pasa lo importante, y pasa rápido: la pizza sale al momento.</p></li><li data-m><h3>La carta</h3><p>Seis pizzas de la casa flotan en la sala. Tocas una, la cámara se acerca, ves qué lleva y cuánto cuesta, y la agregas a tu pedido.</p></li><li data-m><h3>Llegó</h3><p>Los ingredientes arman la B de Barona frente al letrero encendido. Más pizza, menos drama: lo único que falta es que pidas la tuya.</p></li></ol>
+    <div class="acciones"><a class="btn btn-linea" href="#top">Volver a empezar el viaje</a></div>
+  </div>
+</section>
+<section class="sec rojo cierre">
+  <div class="wrap">
+    <img src="../img/ilus-fiesta-sticker.webp" alt="" width="495" height="640" class="pegatina" loading="lazy" decoding="async" data-m="zoom">
+    <h2 data-m>Más pizza, menos drama</h2><p class="bajada" data-m>Arma tu pedido y mándalo por WhatsApp. Así de fácil.</p>
+    <div class="acciones" data-m><a class="btn btn-lino" data-wa="¡Hola Barona! Vengo del viaje 3D y quiero pedir." data-desde="viaje-cierre" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Vengo%20del%20viaje%203D%20y%20quiero%20pedir."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>Pedir por WhatsApp</a><a class="btn btn-linea" href="../menu/">Ver el menú</a></div>
+    <nav class="sigue" aria-label="Sigue por aquí" data-m><a href="../menu/"><b>Menú y precios</b><span>Todo lo que hay para pedir.</span></a><a href="../domicilios/"><b>Domicilios</b><span>Cómo pedir y a dónde llegamos.</span></a><a href="../historia/"><b>Historia</b><span>Pizza con calle desde 2006.</span></a></nav>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-rej">
+      <div><img src="../img/lockup-blanco.webp" alt="Barona Pizza, establecida en 2006" width="770" height="800" class="logo" loading="lazy" decoding="async"><p class="lema">Más pizza,<br>menos drama.</p><p style="margin-top:14px;max-width:32ch">Pizzería en Bogotá desde 2006. La misma pizza de siempre, con nueva imagen.</p></div>
+      <div><h3>El sitio</h3><ul><li><a href="../menu/">Menú y precios</a></li><li><a href="../domicilios/">Domicilios</a></li><li><a href="../historia/">Nuestra historia</a></li><li><a href="../ubicacion/">Ubicación y horario</a></li><li><a href="../preguntas/">Preguntas frecuentes</a></li><li><a href="../3d/">El viaje de una Barona (3D)</a></li></ul></div>
+      <div><h3>Dónde y cuándo</h3><p>Escríbenos y te mandamos la ubicación<br>Bogotá, Colombia</p><p>Todos los días de 3:00 p. m. a 11:00 p. m.</p><p><a class="enl" href="../ubicacion/">Cómo llegar</a></p></div>
+      <div><h3>Contacto</h3><ul><li><a data-wa="¡Hola Barona! Quiero hacer un pedido." data-desde="pie" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Quiero%20hacer%20un%20pedido.">WhatsApp +57 314 2953367</a></li><li><a href="https://www.instagram.com/baronapizza/" target="_blank" rel="noopener">Instagram @baronapizza</a></li></ul></div>
+    </div>
+    <div class="pie-base"><span>© 2026 Barona Pizza · Bogotá, Colombia · ESTD 2006</span><span><a href="../privacidad/">Privacidad</a> · <a href="../creditos/">Créditos</a> · Sitio por <a href="https://studiobashi.com" target="_blank" rel="noopener">BASHI</a></span></div>
+  </div>
+</footer>
+<div class="fijo" id="fijo"><a class="btn btn-wa" data-wa="¡Hola Barona! Vengo del viaje 3D y quiero pedir." data-desde="boton-fijo" href="https://wa.me/573142953367?text=%C2%A1Hola%20Barona%21%20Vengo%20del%20viaje%203D%20y%20quiero%20pedir."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>Pedir por WhatsApp</a></div>
+<div class="velo" id="velo" data-cerrar-pedido></div>
+<aside class="cajon" id="cajon" aria-label="Tu pedido" aria-hidden="true" inert>
+  <div class="cajon-cab"><h2>Tu pedido</h2><button class="cerrar" type="button" data-cerrar-pedido aria-label="Cerrar el pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  <div class="cajon-cuerpo" id="cajon-cuerpo"></div>
+  <div class="cajon-pie"><div class="total"><span>Total sin domicilio</span><b id="cajon-total">$0</b></div><a class="btn btn-wa" id="cajon-ir" href="../menu/" target="_blank" rel="noopener">Ver el menú</a><small>Se abre WhatsApp con tu pedido escrito. Ahí confirmas dirección, pago y valor del domicilio.</small></div>
+</aside>
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+<script src="../js/site.js" defer></script>
+<script src="../js/viaje.js" defer></script>
+</body>
+</html>
